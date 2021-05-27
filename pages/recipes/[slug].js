@@ -27,6 +27,15 @@ export const getStaticProps = async ({ params }) => {
     "fields.slug": params.slug,
   });
 
+  if (!res.items.length) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false, //a un determinato URL che viene digitato, si puo stabilire se assegnare un redirect permanente o no
+      },
+    };
+  }
+
   return {
     props: {
       recipe: res.items[0], //recipe: items[0]
