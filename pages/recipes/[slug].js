@@ -1,7 +1,7 @@
 import { createClient } from "contentful";
 import Img from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-
+import Skeleton from "../../components/Skeleton";
 const client = createClient({
   space: "5nv6yj8qblqw",
   accessToken: process.env.API_KEY,
@@ -16,7 +16,8 @@ export async function getStaticPaths() {
 
   return {
     paths, // [{},{},{}]
-    fallback: false, //rimanda a un 404 page se non esiste
+    // fallback: false, rimanda a un 404 page se non esiste
+    fallback: true, //re-run the getStaticProps and try to fetch new possible contents
   };
 }
 
@@ -35,6 +36,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export default function RecipeDetails({ recipe }) {
+  if (!recipe) return <Skeleton />;
   const { featureImage, title, cookingTime, method, ingredients } =
     recipe.fields;
 

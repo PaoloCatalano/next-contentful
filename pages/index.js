@@ -13,7 +13,7 @@ export async function getStaticProps() {
     props: {
       recipes: res.items,
     },
-    revalidate: 1,
+    revalidate: 1, //intervallo di tempo in secondi per confrontare se ci sono contenuti diversi (ma non puo rigenerare nuove pagine!!) e rigenera le modifiche, senza alcun redeploy, dopo il secondo refresh di pagina.
   };
 }
 
